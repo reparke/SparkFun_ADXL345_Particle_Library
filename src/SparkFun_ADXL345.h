@@ -122,6 +122,7 @@ public:
 	void readAccel(int* xyx);
 	void readAccel(int* x, int* y, int* z);
 	void get_Gxyz(double *xyz);
+	void readAndCalcAccel();
 	
 	void setTapThreshold(int tapThreshold);
 	int getTapThreshold();

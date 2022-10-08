@@ -86,7 +86,7 @@ void ADXL345::get_Gxyz(double *xyz){
 	for(i=0; i<3; i++){
 		xyz[i] = xyz_int[i] * gains[i];
 	}
-	
+}
 void ADXL345::readAndCalcAccel() {
     readFrom(ADXL345_DATAX0, ADXL345_TO_READ,
              _buff);  // Read Accel Data from ADXL345
@@ -101,7 +101,7 @@ void ADXL345::readAndCalcAccel() {
     cx = x * gains[0];
     cy = y * gains[1];
     cz = z * gains[2];
-}
+
 }
 
 /***************** WRITES VALUE TO ADDRESS REGISTER *****************/
