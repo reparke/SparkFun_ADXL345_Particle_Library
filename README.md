@@ -1,7 +1,7 @@
-# ADXL345
-Sparkfun's I2C/SPI Arduino Library for ADXL345
+# ADXL345_Sparkfun_Particle
+This library for Particle devices is based on Sparkfun's I2C/SPI Arduino Library for ADXL345
 
-Using this Arduino Library, you have the option of using either SPI or I2C to communicate with the ADXL345.
+Using this Library, you have the option of using either SPI or I2C to communicate with the ADXL345.
 
 It is fairly reasonable to use and straight forward.
 
