@@ -19,7 +19,7 @@
  *  Arduino Uno
  *  *********************************************/
 
-#include <SparkFun_ADXL345.h>         // SparkFun ADXL345 Library
+#include "SparkFun_ADXL345.h"  // SparkFun ADXL345 Library
 
 /*********** COMMUNICATION SELECTION ***********/
 /*    Comment Out The One You Are Not Using    */

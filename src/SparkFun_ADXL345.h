@@ -16,7 +16,7 @@ SparkFun Triple Axis Accelerometer Breakout - ADXL345
 Arduino Uno
 */
 
-#include "Arduino.h"
+#include "Particle.h"
 
 #ifndef ADXL345_h
 #define ADXL345_h
@@ -113,7 +113,9 @@ public:
 
 	byte error_code;				// Initial State
 	double gains[3];				// Counts to Gs
-	
+	short x, y, z;     // raw accel values
+    float cx, cy, cz;  // calculated accel values (G's)
+				
 	ADXL345();
 	ADXL345(int CS);
 	void powerOn();
@@ -182,6 +184,9 @@ public:
 	bool isTapSourceOnZ();
 	bool isAsleep();
 	
+	bool readTap();
+    bool readDoubleTap();
+    bool readActivity();
 	bool isLowPower();
 	void setLowPower(bool state);
 	double getRate();

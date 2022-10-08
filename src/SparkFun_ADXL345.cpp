@@ -19,7 +19,7 @@ SparkFun Triple Axis Accelerometer Breakout - ADXL345
 Arduino Uno
 */
 
-#include "Arduino.h"
+
 #include "SparkFun_ADXL345.h"
 #include <Wire.h>
 #include <SPI.h>
@@ -86,6 +86,22 @@ void ADXL345::get_Gxyz(double *xyz){
 	for(i=0; i<3; i++){
 		xyz[i] = xyz_int[i] * gains[i];
 	}
+	
+void ADXL345::readAndCalcAccel() {
+    readFrom(ADXL345_DATAX0, ADXL345_TO_READ,
+             _buff);  // Read Accel Data from ADXL345
+
+    // Each Axis @ All g Ranges: 10 Bit Resolution (2 Bytes)
+    x = (int16_t)((((int)_buff[1]) << 8) | _buff[0]);
+    y = (int16_t)((((int)_buff[3]) << 8) | _buff[2]);
+    z = (int16_t)((((int)_buff[5]) << 8) | _buff[4]);
+
+    // int xyz_int[3];
+    // readAccel(xyz_int);
+    cx = x * gains[0];
+    cy = y * gains[1];
+    cz = z * gains[2];
+}
 }
 
 /***************** WRITES VALUE TO ADDRESS REGISTER *****************/
@@ -597,6 +613,35 @@ bool ADXL345::isTapSourceOnZ(){
 	return getRegisterBit(ADXL345_ACT_TAP_STATUS, 0);
 }
 
+bool ADXL345::readTap() {
+    byte interrupts = getInterruptSource();
+
+    // Tap Detection
+    if (triggered(interrupts, ADXL345_SINGLE_TAP)) {
+        return true;
+    }
+    return false;
+}
+
+bool ADXL345::readDoubleTap() {
+    byte interrupts = getInterruptSource();
+
+    // Tap Detection
+    if (triggered(interrupts, ADXL345_DOUBLE_TAP)) {
+        return true;
+    }
+    return false;
+}
+
+bool ADXL345::readActivity() {
+    byte interrupts = getInterruptSource();
+
+    // Tap Detection
+    if (triggered(interrupts, ADXL345_ACTIVITY)) {
+        return true;
+    }
+    return false;
+}
 /*************************** ASLEEP BIT *****************************/
 /*                                                                  */
 bool ADXL345::isAsleep(){
